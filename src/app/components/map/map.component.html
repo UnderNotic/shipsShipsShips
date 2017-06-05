@@ -1,0 +1,13 @@
+<sebm-google-map>
+    <div *ngFor="let ship of (ships | async)">
+        <sebm-google-map-polyline *ngFor="let coord of ship.coordinates | slice:0:(ship.coordinates.length - 1); let i = index" (lineMouseOut)="mouseOut()"
+            (lineMouseOver)="mouseOver($event, ship.id)" [strokeColor]="colorScaleService.getRgbColor(coord.speed, (minMaxSpeeds | async)[0], (minMaxSpeeds | async)[1])">
+            <sebm-google-map-polyline-point [latitude]="coord.lat" [longitude]="coord.lon"></sebm-google-map-polyline-point>
+            <sebm-google-map-polyline-point [latitude]="ship.coordinates[i+1].lat" [longitude]="ship.coordinates[i+1].lon"></sebm-google-map-polyline-point>
+        </sebm-google-map-polyline>
+    </div>
+</sebm-google-map>
+<div class="coordinates">
+    Found {{coordinatesNumber | async}} coordinates(lines).
+</div>
+<tooltip [id]="tooltip.id" [isVisible]="tooltip.isVisible" [x]="tooltip.x" [y]="tooltip.y"></tooltip>

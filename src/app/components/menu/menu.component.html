@@ -1,0 +1,18 @@
+<input type="file" id="files" (change)="onChange($event)" multiple />
+
+<span *ngIf="areShipsLoading | async">
+    LOADING: {{shipsLoadingIndicatorLevel | async}}%
+</span>
+
+<div *ngIf="isMenuVisible | async">
+    <hr> Select ship:
+    <select (change)="onSelectChange($event.target.value)">
+        <option *ngFor="let id of shipsIds | async" [value]="id">{{id}}</option>
+    </select>
+    <form>
+        Start date:
+        <input type="date" [value]="(startDate | async) | date:'yyyy-MM-dd'" (change)="onStartDateChange($event.target.value)" name="startDate">        End date:
+        <input type="date" [value]="(endDate | async) | date:'yyyy-MM-dd'" (change)="onEndDateChange($event.target.value)" name="endDate">
+    </form>
+    <button type="button" (click)="onLoadClick()">Load!</button>
+</div>
