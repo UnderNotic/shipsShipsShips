@@ -1,4 +1,4 @@
-<sebm-google-map>
+<sebm-google-map [latitude]="(ships | async)[0] ? (ships | async)[0].coordinates[0].lat : 0" [longitude]="(ships | async)[0] ? (ships | async)[0].coordinates[0].lon : 0">
     <div *ngFor="let ship of (ships | async)">
         <sebm-google-map-polyline *ngFor="let coord of ship.coordinates | slice:0:(ship.coordinates.length - 1); let i = index" (lineMouseOut)="mouseOut()"
             (lineMouseOver)="mouseOver($event, ship.id)" [strokeColor]="colorScaleService.getRgbColor(coord.speed, (minMaxSpeeds | async)[0], (minMaxSpeeds | async)[1])">
